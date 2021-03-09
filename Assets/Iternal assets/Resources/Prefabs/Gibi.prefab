@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7709927847159005239}
   - component: {fileID: 7709927847159005238}
   - component: {fileID: 1695742881485451644}
+  - component: {fileID: -5147293849394771267}
   m_Layer: 0
   m_Name: Gibi
   m_TagString: Untagged
@@ -72,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 297761703447499198, guid: 96eb5fe4c4dfd99458dd505a10af2867, type: 3}
+  m_Sprite: {fileID: 297761703447499198, guid: 878cfeeb4c16adf4bb692037d443e5e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.002803, y: 5.9925003}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -95,3 +96,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d5ea4d54331f454d9e9a440f61ea002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &-5147293849394771267
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7709927847159005237}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1179fe767c1ca984d83fe667ff2b4401, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
