@@ -19,6 +19,8 @@ public class Data
         Sprite.Add('┐', Resources.Load<Tile>("Sprites/fence_2"));
         Sprite.Add('-', Resources.Load<Tile>("Sprites/fence_1"));
         Sprite.Add('|', Resources.Load<Tile>("Sprites/fence_3"));
+        Sprite.Add('├', Resources.Load<Tile>("Sprites/fence_8"));
+        Sprite.Add('┴', Resources.Load<Tile>("Sprites/fence_9"));
 
         Prefab.Add('f', Resources.Load<GameObject>("Prefabs/Flower"));
         Prefab.Add('s', Resources.Load<GameObject>("Prefabs/Shadok"));

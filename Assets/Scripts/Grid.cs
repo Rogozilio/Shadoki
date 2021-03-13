@@ -86,12 +86,25 @@ public class Grid
         {
             for (int j = 0; j < GlobalData.gameHeight; j++)
             {
-                if(Value[i, j] == mark)
+                if (Value[i, j] == mark)
                 {
                     count++;
                 }
             }
         }
         return count;
+    }
+    public static void Show()
+    {
+        string row = "";
+        for (int x = GlobalData.gameHeight - 2; x > 0; x--) 
+        {
+            for (int y = 1; y < GlobalData.gameWidth - 1; y++)
+            {
+                row += Value[y,x] + " ";
+            }
+            row += "\n";
+        }
+        Debug.Log(row);
     }
 }

@@ -7,10 +7,10 @@ public class AI
 {
     private List<Vector2> _locationGibi;
     private List<Vector2> _locationFlower;
+    private bool[] _isFreeFlower;
     private byte[,] _distacneBtwGibiAndFlower;
     private byte[] sumDistanceDesñ;
     private Dictionary<byte, Vector2> _dir;
-    private bool[] _isFreeFlower;
 
     public AI()
     {
@@ -76,26 +76,37 @@ public class AI
             {
                 if (_distacneBtwGibiAndFlower[i, _locationFlower.Count] == maxDistance)
                 {
-                    FindFreeFlowerAtGibi(i);
+                    FindFreeFlowerForGibi(i);
                 }
             }
         }
     }
-    private void FindFreeFlowerAtGibi(byte i)
+    private void FindFreeFlowerForGibi(byte i)
     {
-        byte min = _distacneBtwGibiAndFlower[i, 0];
-        byte index = 0;
+        byte index = GetIndexMinDistanceFreeFlower();
+        byte min = _distacneBtwGibiAndFlower[i, index];
 
-        for (byte j = 0; j < _locationFlower.Count - 1; j++)
+        for (byte j = 0; j < _locationFlower.Count; j++)
         {
-            if (_distacneBtwGibiAndFlower[i, j] < min && _isFreeFlower[j] == true)
+            if (_distacneBtwGibiAndFlower[i, j] < min
+                && _isFreeFlower[j] == true)
             {
                 min = _distacneBtwGibiAndFlower[i, j];
                 index = j;
             }
         }
         DeleteFreeFlower(index);
-        _dir.Add(i, _locationFlower[index]);
+        if (!_dir.ContainsKey(i))
+            _dir.Add(i, _locationFlower[index]);
+    }
+    private byte GetIndexMinDistanceFreeFlower()
+    {
+        for (byte i = 0; i < _locationFlower.Count; i++)
+        {
+            if (_isFreeFlower[i] == true)
+                return i;
+        }
+        return 0;
     }
     private void DeleteFreeFlower(byte index)
     {
@@ -119,7 +130,7 @@ public class AI
         Vector2 oldDir = RoundDirection(dir);
         Vector2 newPos = posGibi + oldDir;
 
-        for (int numberDirection = 4; numberDirection > 0; numberDirection--)
+        for (int numberDirection = 4; numberDirection >= 0; numberDirection--)
         {
             if ((Grid.GetMark(newPos) == '0'
                 || Grid.GetMark(newPos) == 'f')
@@ -149,26 +160,21 @@ public class AI
     }
     public Vector2 GetDir(Vector2 posUnit)
     {
-        if (Grid.Value[(int)posUnit.x, (int)posUnit.y] == 's'
-            && _dir.Count == 0)
+        if (Grid.Value[(int)posUnit.x, (int)posUnit.y] == 'g')
         {
             SetLocationGibiAndFlower();
-            SetFreeFlower();
-            SetArrayDistance();
-            SetSumDistanceDesc();
-            WalkSumDistanceDesc();
-            return Vector2.zero;
-        }
-        for (byte i = 0; i < _locationGibi.Count; i++)
-        {
-            if (_locationGibi[i] == posUnit)
+            for (byte i = 0; i < _locationGibi.Count; i++)
             {
-                Vector2 dir = (_dir[i] - posUnit).normalized;
-                if (i == _locationGibi.Count - 1)
-                {
+                if (_locationGibi[i] == posUnit)
+                { 
+                    SetArrayDistance();
+                    SetFreeFlower();
+                    SetSumDistanceDesc();
+                    WalkSumDistanceDesc();
+                    Vector2 dir = (_dir[i] - posUnit).normalized;
                     ClearDataTravel();
+                    return CheckDirection(posUnit, dir);
                 }
-                return CheckDirection(posUnit, dir);
             }
         }
         return Vector2.zero;

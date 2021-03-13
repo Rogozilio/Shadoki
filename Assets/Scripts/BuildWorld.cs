@@ -24,7 +24,7 @@ public class BuildWorld : MonoBehaviour
 
         Grid.SetMark('s');
         Grid.SetMark('f', _countFlower);
-        Grid.SetMark('g');
+        Grid.SetMark('g', 5);
 
         _draw.All(ref _units);
 
