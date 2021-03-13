@@ -92,10 +92,7 @@ public class Gibi : MonoBehaviour, IUnit
         {
             CheckMove(dir);
         }
-        else
-        {
-            SetAnimation(_targetPos - _currentPos, true);
-            GoTowardDirection(Vector3Int.FloorToInt(dir));
-        }
+        SetAnimation(_targetPos - _currentPos, true);
+        GoTowardDirection(Vector3Int.FloorToInt(dir));
     }
 }

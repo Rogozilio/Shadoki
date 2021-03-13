@@ -85,7 +85,7 @@ public class Shadok : MonoBehaviour, IUnit
     }
     private void MouseControl()
     {
-        if(_interface.isUIControl)
+        if (_interface.isUIControl)
         {
             if (_interface.GetDirection() == Vector3Int.zero
                 && _pastDir != Vector3Int.zero)
@@ -106,7 +106,7 @@ public class Shadok : MonoBehaviour, IUnit
     /// <param name="dir">Направление перемещения</param>
     /// <param name="isControlKeyboard">Управление клавиатурой?</param>
     /// <param name="isInMove">Анимация движения?</param>
-    private void SetAnimation(Vector3Int dir,bool isControlKeyboard = false, bool isInMove = false)
+    private void SetAnimation(Vector3Int dir, bool isControlKeyboard = false, bool isInMove = false)
     {
         if (isControlKeyboard)
             _interface.isUIControl = false;
@@ -150,7 +150,7 @@ public class Shadok : MonoBehaviour, IUnit
             _animator.SetInteger("Shadok", (isInMove) ? 88 : 8);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Left_up");
         }
-        else if(dir == Vector3Int.zero)
+        else if (dir == Vector3Int.zero)
         {
             _animator.SetInteger("Shadok", (isInMove) ? 55 : 5);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Empty");
@@ -179,6 +179,10 @@ public class Shadok : MonoBehaviour, IUnit
     }
     public void Move(Vector3 dir)
     {
+        //for (byte i = 0; i < AI._locationGibi.Count; i++)
+        //{
+        //    Debug.DrawLine(AI._locationGibi[i] + new Vector2(0.5f, 0.5f), AI._dir[i] + new Vector2(0.5f, 0.5f), Color.red);
+        //}
         if (_targetPos != Vector3.zero)
         {
             GoTowardDirection();

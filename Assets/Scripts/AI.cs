@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class AI
 {
-    private List<Vector2> _locationGibi;
+    public static List<Vector2> _locationGibi;
     private List<Vector2> _locationFlower;
     private bool[] _isFreeFlower;
-    private byte[,] _distacneBtwGibiAndFlower;
-    private byte[] sumDistanceDesñ;
-    private Dictionary<byte, Vector2> _dir;
+    private float[,] _distacneBtwGibiAndFlower;
+    private float[] sumDistanceDesñ;
+    public static Dictionary<byte, Vector2> _dir;
 
     public AI()
     {
@@ -46,13 +46,13 @@ public class AI
     }
     private void SetArrayDistance()
     {
-        _distacneBtwGibiAndFlower = new byte[_locationGibi.Count, _locationFlower.Count + 1];
+        _distacneBtwGibiAndFlower = new float[_locationGibi.Count, _locationFlower.Count + 1];
 
         for (int i = 0; i < _locationGibi.Count; i++)
         {
             for (int j = 0; j < _locationFlower.Count; j++)
             {
-                _distacneBtwGibiAndFlower[i, j] = (byte)Vector2.Distance(_locationGibi[i], _locationFlower[j]);
+                _distacneBtwGibiAndFlower[i, j] = Vector2.Distance(_locationGibi[i], _locationFlower[j]);
                 _distacneBtwGibiAndFlower[i, _locationFlower.Count] += _distacneBtwGibiAndFlower[i, j];
             }
         }
@@ -60,7 +60,7 @@ public class AI
     private void SetSumDistanceDesc()
     {
         //Ïîëó÷åíèÿ îäíîìåðíîãî ñîðòèðîâàííîãî ìàññèâà ïî óáûâàíèþ
-        sumDistanceDesñ = new byte[_locationGibi.Count];
+        sumDistanceDesñ = new float[_locationGibi.Count];
         for (int i = 0; i < _locationGibi.Count; i++)
         {
             sumDistanceDesñ[i] = _distacneBtwGibiAndFlower[i, _locationFlower.Count];
@@ -70,13 +70,14 @@ public class AI
     }
     private void WalkSumDistanceDesc()
     {
-        foreach (byte maxDistance in sumDistanceDesñ)
+        foreach (float maxDistance in sumDistanceDesñ)
         {
             for (byte i = 0; i < _locationGibi.Count; i++)
             {
                 if (_distacneBtwGibiAndFlower[i, _locationFlower.Count] == maxDistance)
                 {
                     FindFreeFlowerForGibi(i);
+                    break;
                 }
             }
         }
@@ -84,7 +85,7 @@ public class AI
     private void FindFreeFlowerForGibi(byte i)
     {
         byte index = GetIndexMinDistanceFreeFlower();
-        byte min = _distacneBtwGibiAndFlower[i, index];
+        float min = _distacneBtwGibiAndFlower[i, index];
 
         for (byte j = 0; j < _locationFlower.Count; j++)
         {
@@ -162,6 +163,7 @@ public class AI
     {
         if (Grid.Value[(int)posUnit.x, (int)posUnit.y] == 'g')
         {
+            ClearDataTravel();
             SetLocationGibiAndFlower();
             for (byte i = 0; i < _locationGibi.Count; i++)
             {
@@ -172,7 +174,6 @@ public class AI
                     SetSumDistanceDesc();
                     WalkSumDistanceDesc();
                     Vector2 dir = (_dir[i] - posUnit).normalized;
-                    ClearDataTravel();
                     return CheckDirection(posUnit, dir);
                 }
             }
