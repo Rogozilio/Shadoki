@@ -16,7 +16,7 @@ public class Draw
     }
     private GameObject CreateInstance(int x, int y)
     {
-        return _instantiate(_data.Prefab[Grid.Value[x, y]], new Vector3(x,y,1), Quaternion.identity);
+        return _instantiate(_data.Prefab[Grid.Value[x, y]], new Vector3(x,y,-1), Quaternion.identity);
     }
     private GameObject CreateInstance(int x, int y, char mark)
     {

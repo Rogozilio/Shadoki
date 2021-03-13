@@ -17,9 +17,11 @@ public class Grid
                 else if (i == 0 && j == GlobalData.gameHeight - 1)
                     Value[i, j] = '┌';
                 else if (i == GlobalData.gameWidth - 1 && j == 0)
-                    Value[i, j] = '┘';
+                    Value[i, j] = '┴';
                 else if (i == GlobalData.gameWidth - 1 && j == GlobalData.gameHeight - 1)
                     Value[i, j] = '┐';
+                else if (i == GlobalData.gameWidth - 1 && j == 4)
+                    Value[i, j] = '├';
                 else if (i == 0 || i == GlobalData.gameHeight - 1)
                     Value[i, j] = '|';
                 else if (j == 0 || j == GlobalData.gameHeight - 1)

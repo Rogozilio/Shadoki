@@ -8,6 +8,7 @@ public class Gibi : MonoBehaviour, IUnit
     private Vector3Int _currentPos;
     private Vector3Int _targetPos;
     private Transform _transform;
+    private Transform _pointer;
     private Animator _animator;
     private AI _ai;
     public bool IsMoveEnd { get => _isMoveEnd; set => _isMoveEnd = value; }
@@ -16,6 +17,8 @@ public class Gibi : MonoBehaviour, IUnit
     {
         _targetPos = Vector3Int.zero;
         _transform = GetComponent<Transform>();
+        _pointer = _transform.GetChild(0);
+        _pointer.gameObject.SetActive(false);
         _animator = GetComponent<Animator>();
     }
     /// <summary>
@@ -68,6 +71,7 @@ public class Gibi : MonoBehaviour, IUnit
             transform.position = _targetPos;
             _targetPos = Vector3Int.zero;
             _isMoveEnd = true;
+            _pointer.gameObject.SetActive(false);
         }
     }
     private void CheckMove(Vector3 dir)
@@ -83,6 +87,7 @@ public class Gibi : MonoBehaviour, IUnit
     }
     public void Move(Vector3 dir)
     {
+        _pointer.gameObject.SetActive(true);
         if (_targetPos == Vector3Int.zero)
         {
             CheckMove(dir);

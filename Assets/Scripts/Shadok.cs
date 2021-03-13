@@ -11,6 +11,7 @@ public class Shadok : MonoBehaviour, IUnit
     private Animator _animator;
     private Vector3Int _currentPos;
     private Vector3Int _targetPos;
+    private Transform _pointer;
     public bool IsMoveEnd { get => _isMoveEnd; set => _isMoveEnd = value; }
     public Transform Transform { get => _transform; }
 
@@ -19,6 +20,7 @@ public class Shadok : MonoBehaviour, IUnit
         _targetPos = Vector3Int.zero;
         _animator = GetComponent<Animator>();
         _transform = GetComponent<Transform>();
+        _pointer = _transform.GetChild(0);
         _interface = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
         _pastDir = _interface.GetDirection();
     }
@@ -163,7 +165,9 @@ public class Shadok : MonoBehaviour, IUnit
             Grid.SwapMark(_currentPos, _targetPos);
             CheckFinish();
             _isMoveEnd = true;
+            SetAnimation(_targetPos - _currentPos);
             _targetPos = Vector3Int.zero;
+            _pointer.gameObject.SetActive(false);
         }
     }
     private void CheckFinish()
@@ -181,6 +185,7 @@ public class Shadok : MonoBehaviour, IUnit
         }
         else
         {
+            _pointer.gameObject.SetActive(true);
             KeyboardControl();
             MouseControl();
         }
