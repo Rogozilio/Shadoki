@@ -20,7 +20,7 @@ public class Draw
     }
     private GameObject CreateInstance(int x, int y, char mark)
     {
-        return _instantiate(_data.Prefab[mark], new Vector3(x, y, 1), Quaternion.identity);
+        return _instantiate(_data.Prefab[mark], new Vector3(x, y, -1), Quaternion.identity);
     }
     public void All(ref LinkedList<IUnit> _units)
     {

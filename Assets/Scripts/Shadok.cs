@@ -162,8 +162,8 @@ public class Shadok : MonoBehaviour, IUnit
         if (Vector3.Distance(transform.position, _targetPos) < 0.001f)
         {
             transform.position = _targetPos;
-            Grid.SwapMark(_currentPos, _targetPos);
             CheckFinish();
+            Grid.SwapMark(_currentPos, _targetPos);
             _isMoveEnd = true;
             SetAnimation(_targetPos - _currentPos);
             _targetPos = Vector3Int.zero;
@@ -174,7 +174,7 @@ public class Shadok : MonoBehaviour, IUnit
     {
         if (Grid.GetMark(transform.position) == 'e')
         {
-            Debug.Log("End");
+            gameObject.SetActive(false);
         }
     }
     public void Move(Vector3 dir)

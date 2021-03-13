@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RocketOpen: {fileID: 21300000, guid: cfd4ca47b4a3b8e41b756303a97617fe, type: 3}
-  RocketShadok: {fileID: 0}
+  RocketShadok: {fileID: 21300000, guid: 3fd1e2c62d33b314c90be631d1e0fb29, type: 3}
   RocketGibi: {fileID: 0}
 --- !u!1 &5169887307036073624
 GameObject:

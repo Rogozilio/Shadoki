@@ -331,7 +331,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320105029}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 0.017006803, y: 0.017006803, z: 0.017006803}
   m_Children:
   - {fileID: 1164453427}
@@ -829,7 +829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5169887306107159308, guid: 7a3f3e2595349c84a8ba50bd1d34c108, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5169887306107159308, guid: 7a3f3e2595349c84a8ba50bd1d34c108, type: 3}
       propertyPath: m_LocalRotation.w
@@ -862,6 +862,18 @@ PrefabInstance:
     - target: {fileID: 5169887306107159309, guid: 7a3f3e2595349c84a8ba50bd1d34c108, type: 3}
       propertyPath: m_Name
       value: Rocket
+      objectReference: {fileID: 0}
+    - target: {fileID: 5169887306107159309, guid: 7a3f3e2595349c84a8ba50bd1d34c108, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5169887306107159310, guid: 7a3f3e2595349c84a8ba50bd1d34c108, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5169887307036073621, guid: 7a3f3e2595349c84a8ba50bd1d34c108, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 5169887307036073626, guid: 7a3f3e2595349c84a8ba50bd1d34c108, type: 3}
       propertyPath: playOnAwake

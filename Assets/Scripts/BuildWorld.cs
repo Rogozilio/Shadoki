@@ -52,14 +52,15 @@ public class BuildWorld : MonoBehaviour
             _unit = (_unit.Next == null) ? _unit.List.First : _unit.Next;
             _moveManager.SetCommand(new MoveManagerOnCommand(_unit.Value));
         }
-        else
+        else if(Grid.CountMark('s') != 0)
         {
             _moveManager.Go(_ai);
         }
     }
     private void DrawFinish()
     {
-        if(_interface.CircuiteBar.enabled && _interface.CircuiteBar.fillAmount == 1)
+        if(_interface.CircuiteBar.enabled 
+            && _interface.CircuiteBar.fillAmount == 1)
         {
             _interface.CircuiteBar.enabled = false;
             Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4] = 'e';

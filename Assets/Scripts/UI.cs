@@ -7,7 +7,6 @@ public class UI : MonoBehaviour
 {
     private Button[] _buttonControl;
     private Image _circuitBar;
-    private Collider2D _collider;
     private int _dirX;
     private int _dirY;
     public bool isUIControl;
@@ -16,7 +15,6 @@ public class UI : MonoBehaviour
     {
         _buttonControl = GetComponentsInChildren<Button>();
         _circuitBar = GetComponentInChildren<Image>();
-        _collider = GetComponent<BoxCollider2D>();
         UIDraw();
     }
     private void UIDraw()
