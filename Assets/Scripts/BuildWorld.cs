@@ -39,7 +39,11 @@ public class BuildWorld : MonoBehaviour
     }
     private void CheckFlowers()
     {
-        if(Grid.CountMark('f') != _countFlower)
+        if(_interface.CircuiteBar.fillAmount > 0.5)
+        {
+            _countFlower = 4;
+        }
+        if(Grid.CountMark('f') < _countFlower)
         {
             Vector2 pos = Grid.SetMarkGetPosition('f');
             _draw.Mark((byte)pos.x, (byte)pos.y,'f');

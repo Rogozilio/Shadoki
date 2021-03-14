@@ -6,12 +6,12 @@ using UnityEngine;
 public class AI
 {
     private bool _isExistFinish;
-    public static List<Vector2> _locationGibi;
+    private List<Vector2> _locationGibi;
     private List<Vector2> _locationFlower;
     private bool[] _isFreeFlower;
     private float[,] _distacneBtwGibiAndFlower;
     private float[] sumDistanceDesñ;
-    public static Dictionary<byte, Vector2> _dir;
+    private Dictionary<byte, Vector2> _dir;
 
     public AI()
     {
@@ -21,11 +21,16 @@ public class AI
     }
     private void SetLocationGibiAndFlower()
     {
+        Vector2 locationShadok = Vector2.zero;
         for (int i = 1; i < GlobalData.gameWidth - 1; i++)
         {
             for (int j = 1; j < GlobalData.gameHeight - 1; j++)
             {
-                if (Grid.Value[i, j] == 'g')
+                if (Grid.Value[i, j] == 's')
+                {
+                    locationShadok = new Vector2(i, j);
+                }
+                else if (Grid.Value[i, j] == 'g')
                 {
                     _locationGibi.Add(new Vector2(i, j));
                 }
@@ -38,6 +43,10 @@ public class AI
                     _isExistFinish = true;
                 }
             }
+        }
+        if(_locationGibi.Count > _locationFlower.Count)
+        {
+            _locationFlower.Add(locationShadok);
         }
     }
     private void SetFreeFlower()
@@ -102,13 +111,13 @@ public class AI
             }
         }
         DeleteFreeFlower(index);
-        if (!_dir.ContainsKey(i) && !_isExistFinish)
+        if (_isExistFinish)
+        {
+            _dir.Add(i, new Vector2(GlobalData.gameWidth - 2, GlobalData.gameHeight - 4)); 
+        }
+        else if(!_dir.ContainsKey(i))
         {
             _dir.Add(i, _locationFlower[index]);
-        }
-        else
-        {
-            _dir.Add(i, new Vector2(GlobalData.gameWidth - 2, GlobalData.gameHeight - 4));
         }        
     }
     private byte GetIndexMinDistanceFreeFlower()

@@ -21,7 +21,7 @@ public class Flower : MonoBehaviour
     {
         if(Grid.GetMark(transform.position) == 's')
         {
-            _interface.CircuiteBar.fillAmount += (_point + 1);
+            _interface.CircuiteBar.fillAmount += (_point + 1) / 100f;
         }
         if(Grid.GetMark(transform.position) != 'f')
         {
