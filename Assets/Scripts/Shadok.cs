@@ -179,10 +179,6 @@ public class Shadok : MonoBehaviour, IUnit
     }
     public void Move(Vector3 dir)
     {
-        //for (byte i = 0; i < AI._locationGibi.Count; i++)
-        //{
-        //    Debug.DrawLine(AI._locationGibi[i] + new Vector2(0.5f, 0.5f), AI._dir[i] + new Vector2(0.5f, 0.5f), Color.red);
-        //}
         if (_targetPos != Vector3.zero)
         {
             GoTowardDirection();

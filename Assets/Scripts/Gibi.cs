@@ -61,14 +61,22 @@ public class Gibi : MonoBehaviour, IUnit
             _animator.SetInteger("Gibi", (isInMove) ? 88 : 8);
         }
     }
+    private void CheckFinish()
+    {
+        if (Grid.GetMark(transform.position) == 'e')
+        {
+            gameObject.SetActive(false);
+        }
+    }
     private void GoTowardDirection(Vector3Int dir)
     {
         transform.position = Vector3.MoveTowards(transform.position, _targetPos, 10f * Time.deltaTime);
         if (Vector3.Distance(transform.position, _targetPos) < 0.001f)
         {
             SetAnimation(_targetPos - _currentPos);
-            Grid.SwapMark(_currentPos, _targetPos);
             transform.position = _targetPos;
+            CheckFinish();
+            Grid.SwapMark(_currentPos, _targetPos);
             _targetPos = Vector3Int.zero;
             _isMoveEnd = true;
             _pointer.gameObject.SetActive(false);

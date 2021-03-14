@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AI
 {
+    private bool _isExistFinish;
     public static List<Vector2> _locationGibi;
     private List<Vector2> _locationFlower;
     private bool[] _isFreeFlower;
@@ -31,6 +32,10 @@ public class AI
                 else if (Grid.Value[i, j] == 'f')
                 {
                     _locationFlower.Add(new Vector2(i, j));
+                }
+                else if(Grid.Value[i, j] == 'e')
+                {
+                    _isExistFinish = true;
                 }
             }
         }
@@ -97,8 +102,14 @@ public class AI
             }
         }
         DeleteFreeFlower(index);
-        if (!_dir.ContainsKey(i))
+        if (!_dir.ContainsKey(i) && !_isExistFinish)
+        {
             _dir.Add(i, _locationFlower[index]);
+        }
+        else
+        {
+            _dir.Add(i, new Vector2(GlobalData.gameWidth - 2, GlobalData.gameHeight - 4));
+        }        
     }
     private byte GetIndexMinDistanceFreeFlower()
     {
@@ -134,7 +145,8 @@ public class AI
         for (int numberDirection = 4; numberDirection >= 0; numberDirection--)
         {
             if ((Grid.GetMark(newPos) == '0'
-                || Grid.GetMark(newPos) == 'f')
+                || Grid.GetMark(newPos) == 'f'
+                || Grid.GetMark(newPos) == 'e')
                 && oldDir != Vector2.zero
                 && oldDir.x >= -1 && oldDir.x <= 1
                 && oldDir.y >= -1 && oldDir.y <= 1)
@@ -155,6 +167,7 @@ public class AI
     }
     private void ClearDataTravel()
     {
+        _isExistFinish = false;
         _locationGibi.Clear();
         _locationFlower.Clear();
         _dir.Clear();

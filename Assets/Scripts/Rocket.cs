@@ -43,12 +43,16 @@ public class Rocket : MonoBehaviour
             _spriteRender.sprite = RocketShadok;
             _fire.Play();
             _isReadyLaunch = true;
+            Destroy(GameObject.FindGameObjectWithTag("Finish"));
         }
         if (_spriteRender.sprite == RocketOpen 
            && Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4] == 'g')
         {
+            Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4] = '0';
             _spriteRender.sprite = RocketGibi;
             _fire.Play();
+            _isReadyLaunch = true;
+            Destroy(GameObject.FindGameObjectWithTag("Finish"));
         }
     }
     private void Launch()
