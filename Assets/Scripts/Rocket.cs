@@ -11,13 +11,17 @@ public class Rocket : MonoBehaviour
     private UI _interface;
     private SpriteRenderer _spriteRender;
     private SaveLoad _saveLoad;
+    private AudioSource _audio;
     public Sprite RocketOpen;
     public Sprite RocketShadok;
     public Sprite RocketGibi;
+    public AudioClip AudioRocketReady;
+    public AudioClip AudioRocketLaunch;
     void Start()
     {
         _isReadyLaunch = false;
         _saveLoad = new SaveLoad();
+        _audio = GetComponent<AudioSource>();
         _fire = GetComponentsInChildren<ParticleSystem>()[0];
         _sparks = GetComponentsInChildren<ParticleSystem>()[1];
         _interface = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
@@ -40,6 +44,8 @@ public class Rocket : MonoBehaviour
         {
             _spriteRender.sprite = RocketOpen;
             _sparks.Stop();
+            _audio.clip = AudioRocketReady;
+            _audio.Play();
         }
         else if (_spriteRender.sprite == RocketOpen
             && (_finished == 's' || _finished == 'g'))
@@ -49,6 +55,9 @@ public class Rocket : MonoBehaviour
             _fire.Play();
             _isReadyLaunch = true;
             Destroy(GameObject.FindGameObjectWithTag("Finish"));
+            _audio.clip = AudioRocketLaunch;
+            _audio.loop = true;
+            _audio.Play();
             _saveLoad.ResetData();
         }
     }
@@ -57,7 +66,7 @@ public class Rocket : MonoBehaviour
         if(_isReadyLaunch)
         {
             transform.position = Vector2
-                .MoveTowards(transform.position, new Vector2(transform.position.x, 20), 2f * Time.deltaTime);
+                .MoveTowards(transform.position, new Vector2(transform.position.x, 20), 0.5f * Time.deltaTime);
         }
     }
 }

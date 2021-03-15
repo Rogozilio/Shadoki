@@ -13,11 +13,16 @@ public class BuildWorld : MonoBehaviour
     private SaveLoad _saveLoad;
     private UI _interface;
     private AI _ai;
+    private AudioSource _audio;
     public byte _countFlower;
+    public AudioClip AudioMain;
+    public AudioClip AudioGoodEnd;
+    public AudioClip AudioBadEnd;
     private void Start()
     {
         _map = GameObject.FindGameObjectWithTag("Tilemap").GetComponent<Tilemap>();
         _interface = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
+        _audio = GetComponent<AudioSource>();
         _draw = new Draw(Instantiate, _map);
         _ai = new AI();
         _saveLoad = new SaveLoad();
@@ -41,6 +46,7 @@ public class BuildWorld : MonoBehaviour
         ActiveMoveManager();
         CheckFlowers();
         DrawFinish();
+        ChangeAudio();
     }
     private void CheckFlowers()
     {
@@ -74,6 +80,19 @@ public class BuildWorld : MonoBehaviour
             _interface.CircuiteBar.enabled = false;
             Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4] = 'e';
             _draw.Mark('e');
+        }
+    }
+    private void ChangeAudio()
+    {
+        if(Grid.CountMark('s') == 0 && _audio.clip == AudioMain)
+        {
+            _audio.clip = AudioGoodEnd;
+            _audio.Play();
+        }
+        else if(Grid.CountMark('g') == 4 && _audio.clip == AudioMain)
+        {
+            _audio.clip = AudioBadEnd;
+            _audio.Play();
         }
     }
 }

@@ -14,6 +14,9 @@ public class Shadok : MonoBehaviour, IUnit
     private Vector3Int _currentPos;
     private Vector3Int _targetPos;
     private Transform _pointer;
+    private AudioSource _audio;
+    public AudioClip AudioPickUp;
+    public AudioClip AudioDeadlock;
     public bool IsMoveEnd { get => _isMoveEnd; set => _isMoveEnd = value; }
     public Transform Transform { get => _transform; }
 
@@ -25,6 +28,7 @@ public class Shadok : MonoBehaviour, IUnit
         _animator = GetComponent<Animator>();
         _transform = GetComponent<Transform>();
         _pointer = _transform.GetChild(0);
+        _audio = GetComponent<AudioSource>();
         _interface = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
         _pastDir = _interface.GetDirection();
     }
@@ -39,6 +43,16 @@ public class Shadok : MonoBehaviour, IUnit
             _targetPos = Vector3Int.FloorToInt(transform.position + dir);
             _currentPos = Vector3Int.FloorToInt(transform.position);
             SetAnimation(dir, true, true);
+            if(Grid.Value[newPos.x, newPos.y] == 'f')
+            {
+                _audio.clip = AudioPickUp;
+                _audio.Play();
+            }
+        }
+        else
+        {
+            _audio.clip = AudioDeadlock;
+            _audio.Play();
         }
     }
     private void KeyboardControl()

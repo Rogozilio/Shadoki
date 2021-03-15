@@ -10,12 +10,16 @@ public class Gibi : MonoBehaviour, IUnit
     private Transform _transform;
     private Transform _pointer;
     private Animator _animator;
+    private AudioSource _audio;
     private AI _ai;
+    public AudioClip AudioPickUp;
+
     public bool IsMoveEnd { get => _isMoveEnd; set => _isMoveEnd = value; }
     public Transform Transform { get => _transform; set => _transform = value; }
     public void Start()
     {
         _targetPos = Vector3Int.zero;
+        _audio = GetComponent<AudioSource>();
         _transform = GetComponent<Transform>();
         _pointer = _transform.GetChild(0);
         _pointer.gameObject.SetActive(false);
@@ -91,6 +95,11 @@ public class Gibi : MonoBehaviour, IUnit
         {
             _targetPos = newPos;
             _currentPos = Vector3Int.FloorToInt(transform.position);
+            if(Grid.Value[newPos.x, newPos.y] == 'f')
+            {
+                _audio.clip = AudioPickUp;
+                _audio.Play();
+            }
         }
     }
     public void Move(Vector3 dir)
