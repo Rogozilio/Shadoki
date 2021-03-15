@@ -10,6 +10,7 @@ public class BuildWorld : MonoBehaviour
     private LinkedList<IUnit> _units;
     private LinkedListNode<IUnit> _unit;
     private MoveManager _moveManager;
+    private SaveLoad _saveLoad;
     private UI _interface;
     private AI _ai;
     public byte _countFlower;
@@ -19,13 +20,17 @@ public class BuildWorld : MonoBehaviour
         _interface = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
         _draw = new Draw(Instantiate, _map);
         _ai = new AI();
+        _saveLoad = new SaveLoad();
         _units = new LinkedList<IUnit>();
         _moveManager = new MoveManager();
 
-        Grid.SetMark('s');
-        Grid.SetMark('f', _countFlower);
-        Grid.SetMark('g', 5);
-
+        if(!_saveLoad.LoadData(ref _interface))
+        {
+            Grid.SetMark('s');
+            Grid.SetMark('f', _countFlower);
+            Grid.SetMark('g', 5);
+        }
+        
         _draw.All(ref _units);
 
         _unit = _units.First;

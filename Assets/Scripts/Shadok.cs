@@ -5,6 +5,8 @@ using UnityEngine;
 public class Shadok : MonoBehaviour, IUnit
 {
     private bool _isMoveEnd;
+    private bool _isGameSaved;
+    private SaveLoad _saveLoad;
     private Transform _transform;
     private UI _interface;
     private Vector3Int _pastDir;
@@ -17,7 +19,9 @@ public class Shadok : MonoBehaviour, IUnit
 
     private void Start()
     {
+        _isGameSaved = false;
         _targetPos = Vector3Int.zero;
+        _saveLoad = new SaveLoad();
         _animator = GetComponent<Animator>();
         _transform = GetComponent<Transform>();
         _pointer = _transform.GetChild(0);
@@ -165,6 +169,7 @@ public class Shadok : MonoBehaviour, IUnit
             CheckFinish();
             Grid.SwapMark(_currentPos, _targetPos);
             _isMoveEnd = true;
+            _isGameSaved = false;
             SetAnimation(_targetPos - _currentPos);
             _targetPos = Vector3Int.zero;
             _pointer.gameObject.SetActive(false);
@@ -179,6 +184,11 @@ public class Shadok : MonoBehaviour, IUnit
     }
     public void Move(Vector3 dir)
     {
+        if(!_isGameSaved)
+        {
+            _saveLoad.SaveData(_interface.CircuiteBar.fillAmount);
+            _isGameSaved = true;
+        }
         if (_targetPos != Vector3.zero)
         {
             GoTowardDirection();

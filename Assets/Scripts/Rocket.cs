@@ -5,16 +5,19 @@ using UnityEngine;
 public class Rocket : MonoBehaviour
 {
     private bool _isReadyLaunch;
+    private char _finished;
     private ParticleSystem _fire;
     private ParticleSystem _sparks;
     private UI _interface;
     private SpriteRenderer _spriteRender;
+    private SaveLoad _saveLoad;
     public Sprite RocketOpen;
     public Sprite RocketShadok;
     public Sprite RocketGibi;
     void Start()
     {
         _isReadyLaunch = false;
+        _saveLoad = new SaveLoad();
         _fire = GetComponentsInChildren<ParticleSystem>()[0];
         _sparks = GetComponentsInChildren<ParticleSystem>()[1];
         _interface = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
@@ -28,7 +31,9 @@ public class Rocket : MonoBehaviour
     }
     private void ChangeSprite()
     {
-        if(_interface.CircuiteBar.fillAmount == 1 
+        _finished = Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4];
+
+        if (_interface.CircuiteBar.fillAmount == 1
             && _spriteRender.sprite != RocketOpen
             && _spriteRender.sprite != RocketShadok
             && _spriteRender.sprite != RocketGibi)
@@ -36,23 +41,15 @@ public class Rocket : MonoBehaviour
             _spriteRender.sprite = RocketOpen;
             _sparks.Stop();
         }
-        if (_spriteRender.sprite == RocketOpen 
-            && Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4] == 's')
+        else if (_spriteRender.sprite == RocketOpen
+            && (_finished == 's' || _finished == 'g'))
         {
             Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4] = '0';
-            _spriteRender.sprite = RocketShadok;
+            _spriteRender.sprite = (_finished == 's')?RocketShadok:RocketGibi;
             _fire.Play();
             _isReadyLaunch = true;
             Destroy(GameObject.FindGameObjectWithTag("Finish"));
-        }
-        if (_spriteRender.sprite == RocketOpen 
-           && Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4] == 'g')
-        {
-            Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4] = '0';
-            _spriteRender.sprite = RocketGibi;
-            _fire.Play();
-            _isReadyLaunch = true;
-            Destroy(GameObject.FindGameObjectWithTag("Finish"));
+            _saveLoad.ResetData();
         }
     }
     private void Launch()
