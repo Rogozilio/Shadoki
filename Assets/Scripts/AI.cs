@@ -1,25 +1,27 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AI
 {
-    private bool _isExistFinish;
-    private List<Vector2> _locationGibi;
-    private List<Vector2> _locationFlower;
-    private bool[] _isFreeFlower;
-    private float[,] _distacneBtwGibiAndFlower;
-    private float[] sumDistanceDesс;
-    private Dictionary<byte, Vector2> _dir;
+    private bool                        _isExistFinish;
+    private bool[]                      _isFreeFlower;
+    private float[]                     _sumDistanceDesс;
+    private float[,]                    _distacneBtwGibiAndFlower;
+    private List<Vector2>               _locationGibi;
+    private List<Vector2>               _locationFlower;
+    private Dictionary<byte, Vector2>   _posTarget;
 
     public AI()
     {
-        _locationGibi = new List<Vector2>();
+        _locationGibi   = new List<Vector2>();
         _locationFlower = new List<Vector2>();
-        _dir = new Dictionary<byte, Vector2>();
+        _posTarget      = new Dictionary<byte, Vector2>();
     }
-    private void SetLocationGibiAndFlower()
+    /// <summary>
+    /// Получение кординат активных объектов из сетки
+    /// </summary>
+    private void SetLocationActiveObjects()
     {
         Vector2 locationShadok = Vector2.zero;
         for (int i = 1; i < Grid.GameWidth - 1; i++)
@@ -49,6 +51,9 @@ public class AI
             _locationFlower.Add(locationShadok);
         }
     }
+    /// <summary>
+    /// Освобождение flowers
+    /// </summary>
     private void SetFreeFlower()
     {
         _isFreeFlower = new bool[_locationFlower.Count];
@@ -58,6 +63,9 @@ public class AI
             _isFreeFlower[i] = true;
         }
     }
+    /// <summary>
+    /// Задает массив дистанций между gibi и flowers 
+    /// </summary>
     private void SetArrayDistance()
     {
         _distacneBtwGibiAndFlower = new float[_locationGibi.Count, _locationFlower.Count + 1];
@@ -71,20 +79,25 @@ public class AI
             }
         }
     }
+    /// <summary>
+    /// Задает сумму дистанций gibi до всех flowers в порядке убывания
+    /// </summary>
     private void SetSumDistanceDesc()
     {
-        //Получения одномерного сортированного массива по убыванию
-        sumDistanceDesс = new float[_locationGibi.Count];
+        _sumDistanceDesс = new float[_locationGibi.Count];
         for (int i = 0; i < _locationGibi.Count; i++)
         {
-            sumDistanceDesс[i] = _distacneBtwGibiAndFlower[i, _locationFlower.Count];
+            _sumDistanceDesс[i] = _distacneBtwGibiAndFlower[i, _locationFlower.Count];
         }
-        Array.Sort(sumDistanceDesс);
-        Array.Reverse(sumDistanceDesс);
+        Array.Sort(_sumDistanceDesс);
+        Array.Reverse(_sumDistanceDesс);
     }
+    /// <summary>
+    /// Перемещаем gibi с большой суммой дистанций до меньшей
+    /// </summary>
     private void WalkSumDistanceDesc()
     {
-        foreach (float maxDistance in sumDistanceDesс)
+        foreach (float maxDistance in _sumDistanceDesс)
         {
             for (byte i = 0; i < _locationGibi.Count; i++)
             {
@@ -96,6 +109,10 @@ public class AI
             }
         }
     }
+    /// <summary>
+    /// Gibi получает не занятый другим gibi ближайший цветочек
+    /// </summary>
+    /// <param name="i">номер gibi</param>
     private void FindFreeFlowerForGibi(byte i)
     {
         byte index = GetIndexMinDistanceFreeFlower();
@@ -113,13 +130,16 @@ public class AI
         DeleteFreeFlower(index);
         if (_isExistFinish)
         {
-            _dir.Add(i, new Vector2(Grid.GameWidth - 2, Grid.GameHeight - 4)); 
+            _posTarget.Add(i, new Vector2(Grid.GameWidth - 2, Grid.GameHeight - 4)); 
         }
-        else if(!_dir.ContainsKey(i))
+        else if(!_posTarget.ContainsKey(i))
         {
-            _dir.Add(i, _locationFlower[index]);
+            _posTarget.Add(i, _locationFlower[index]);
         }        
     }
+    /// <summary>
+    /// Получений индекса свободного flower
+    /// </summary>
     private byte GetIndexMinDistanceFreeFlower()
     {
         for (byte i = 0; i < _locationFlower.Count; i++)
@@ -129,10 +149,16 @@ public class AI
         }
         return 0;
     }
+    /// <summary>
+    /// Gibi занимает flower по индексу
+    /// </summary>
     private void DeleteFreeFlower(byte index)
     {
         _isFreeFlower[index] = false;
     }
+    /// <summary>
+    /// Округление полученного направления до целого числа 
+    /// </summary>
     private Vector2 RoundDirection(Vector2 dir)
     {
         Vector2 newDir = Vector2.zero;
@@ -146,6 +172,10 @@ public class AI
             newDir += Vector2.down;
         return newDir;
     }
+    /// <summary>
+    /// Проверяет свободна ли клетка для перемещения,
+    /// иначе ищет соседнию свободную клетку
+    /// </summary>
     private Vector2 CheckDirection(Vector2 posGibi, Vector2 dir)
     {
         Vector2 oldDir = RoundDirection(dir);
@@ -174,19 +204,25 @@ public class AI
         }
         return Vector2.zero;
     }
+    /// <summary>
+    /// очещение данных для расчета следующих ходов
+    /// </summary>
     private void ClearDataTravel()
     {
         _isExistFinish = false;
         _locationGibi.Clear();
         _locationFlower.Clear();
-        _dir.Clear();
+        _posTarget.Clear();
     }
+    /// <summary>
+    /// Выдает направление движения для gibi
+    /// </summary>
     public Vector2 GetDir(Vector2 posUnit)
     {
         if (Grid.Value[(int)posUnit.x, (int)posUnit.y] == 'g')
         {
             ClearDataTravel();
-            SetLocationGibiAndFlower();
+            SetLocationActiveObjects();
             for (byte i = 0; i < _locationGibi.Count; i++)
             {
                 if (_locationGibi[i] == posUnit)
@@ -195,7 +231,7 @@ public class AI
                     SetFreeFlower();
                     SetSumDistanceDesc();
                     WalkSumDistanceDesc();
-                    Vector2 dir = (_dir[i] - posUnit).normalized;
+                    Vector2 dir = (_posTarget[i] - posUnit).normalized;
                     return CheckDirection(posUnit, dir);
                 }
             }

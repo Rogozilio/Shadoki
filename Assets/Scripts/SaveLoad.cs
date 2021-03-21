@@ -1,9 +1,9 @@
-using System;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class SaveData
 {
     public char[,] Grid;
@@ -11,6 +11,9 @@ public class SaveData
 }
 public class SaveLoad
 {
+    /// <summary>
+    /// Сохранение данных
+    /// </summary>
     public void SaveData(float circuitBar)
     {
         if(circuitBar != 1)
@@ -23,9 +26,11 @@ public class SaveLoad
             data.CircuitBar = circuitBar;
             bf.Serialize(file, data);
             file.Close();
-            Debug.Log("Game data saved!");
         }
     }
+    /// <summary>
+    /// Загрузка данных
+    /// </summary>
     public bool LoadData(ref UI interfaсe)
     {
         if (File.Exists(Application.persistentDataPath
@@ -39,12 +44,14 @@ public class SaveLoad
             file.Close();
             Grid.Value = data.Grid;
             interfaсe.CircuiteBar.fillAmount = data.CircuitBar;
-            Debug.Log("Game data loaded!");
             return true;
         }
         else
             return false;
     }
+    /// <summary>
+    /// Очищение данных
+    /// </summary>
     public void ResetData()
     {
         if (File.Exists(Application.persistentDataPath
@@ -52,7 +59,6 @@ public class SaveLoad
         {
             File.Delete(Application.persistentDataPath
               + "/MySaveData.dat");
-            Debug.Log("Data reset complete!");
         }
     }
 }

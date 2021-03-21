@@ -1,38 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
-    private bool _isReadyLaunch;
-    private char _finished;
-    private ParticleSystem _fire;
-    private ParticleSystem _sparks;
-    private UI _interface;
-    private SpriteRenderer _spriteRender;
-    private SaveLoad _saveLoad;
-    private AudioSource _audio;
-    public Sprite RocketOpen;
-    public Sprite RocketShadok;
-    public Sprite RocketGibi;
-    public AudioClip AudioRocketReady;
-    public AudioClip AudioRocketLaunch;
+    private bool            _isReadyLaunch;
+    private char            _finished;
+    private UI              _interface;
+    private SaveLoad        _saveLoad;
+    private AudioSource     _audio;
+    private ParticleSystem  _fire;
+    private ParticleSystem  _sparks;
+    private SpriteRenderer  _spriteRender;
+
+    public Sprite           RocketOpen;
+    public Sprite           RocketShadok;
+    public Sprite           RocketGibi;
+    public AudioClip        AudioRocketReady;
+    public AudioClip        AudioRocketLaunch;
     void Start()
     {
-        _isReadyLaunch = false;
-        _saveLoad = new SaveLoad();
-        _audio = GetComponent<AudioSource>();
-        _fire = GetComponentsInChildren<ParticleSystem>()[0];
-        _sparks = GetComponentsInChildren<ParticleSystem>()[1];
-        _interface = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
-        _spriteRender = GetComponent<SpriteRenderer>();
-        _interface.CircuiteBar.transform.position = new Vector3(transform.position.x - 0.013f, transform.position.y - 0.25f, 1);
+        _isReadyLaunch  = false;
+        _saveLoad       = new SaveLoad();
+        _audio          = GetComponent<AudioSource>();
+        _fire           = GetComponentsInChildren<ParticleSystem>()[0];
+        _sparks         = GetComponentsInChildren<ParticleSystem>()[1];
+        _interface      = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
+        _spriteRender   = GetComponent<SpriteRenderer>();
+        _interface.CircuiteBar.transform.position 
+                        = new Vector3(transform.position.x - 0.013f, transform.position.y - 0.25f, 1);
     }
     void Update()
     {
         ChangeSprite();
         Launch();
     }
+    /// <summary>
+    /// Изменения статуса состаяния ракеты
+    /// </summary>
     private void ChangeSprite()
     {
         _finished = Grid.Value[Grid.GameWidth - 2, Grid.GameHeight - 4];
@@ -61,6 +64,9 @@ public class Rocket : MonoBehaviour
             _saveLoad.ResetData();
         }
     }
+    /// <summary>
+    /// Запуск ракеты
+    /// </summary>
     private void Launch()
     {
         if(_isReadyLaunch)

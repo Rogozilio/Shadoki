@@ -1,27 +1,37 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Draw
 {
+    private InstantiateDelegat  _instantiate;
+    private Data                _data;
+
     public delegate GameObject InstantiateDelegat(GameObject original, Vector3 position, Quaternion rotation);
-    private InstantiateDelegat _instantiate;
-    private Data _data;
     public Draw(InstantiateDelegat instantiate, Tilemap map)
     {
-        _data = new Data();
+        _data        = new Data();
         _instantiate = instantiate;
+
         Background(map);
     }
+    /// <summary>
+    /// Создание префаба через делегат по значению сетки
+    /// </summary>
     private GameObject CreateInstance(int x, int y)
     {
         return _instantiate(_data.Prefab[Grid.Value[x, y]], new Vector3(x,y,-1), Quaternion.identity);
     }
+    /// <summary>
+    /// Создание префаба через делегат по символу
+    /// </summary>
     private GameObject CreateInstance(int x, int y, char mark)
     {
         return _instantiate(_data.Prefab[mark], new Vector3(x, y, -1), Quaternion.identity);
     }
+    /// <summary>
+    /// Отрисовка игрового поля
+    /// </summary>
     public void All(ref LinkedList<IUnit> _units)
     {
         for (int i = 1; i < Grid.GameWidth - 1; i++)
@@ -43,6 +53,9 @@ public class Draw
             }
         }
     }
+    /// <summary>
+    /// Создать объект(ы) по символу, если он(и) есть в сетке
+    /// </summary>
     public void Mark(params char[] gameObjectMark)
     {
         for (int i = 0; i < Grid.Value.GetLength(0); i++)
@@ -59,10 +72,16 @@ public class Draw
             }
         }
     }
-    public void Mark(byte x, byte y, char gameObjectMark)
+    /// <summary>
+    /// Создать объект в кординате сетки
+    /// </summary>
+    public void Mark(byte x, byte y)
     {
-        CreateInstance(x, y, gameObjectMark);
+        CreateInstance(x, y, Grid.Value[x, y]);
     }
+    /// <summary>
+    /// Отрисовка фона
+    /// </summary>
     private void Background(Tilemap _map)
     {
         for (int i = 0; i < Grid.Value.GetLength(0); i++)

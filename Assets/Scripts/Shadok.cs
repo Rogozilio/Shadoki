@@ -4,37 +4,42 @@ using UnityEngine;
 
 public class Shadok : MonoBehaviour, IUnit
 {
-    private bool _isMoveEnd;
-    private bool _isGameSaved;
-    private SaveLoad _saveLoad;
-    private Transform _transform;
-    private UI _interface;
-    private Vector3Int _pastDir;
-    private Animator _animator;
-    private Vector3Int _currentPos;
-    private Vector3Int _targetPos;
-    private Transform _pointer;
+    private bool        _isMoveEnd;
+    private bool        _isGameSaved;
+    private UI          _interface;
+    private SaveLoad    _saveLoad;
+    private Transform   _transform;
+    private Transform   _pointer;
+    private Vector3Int  _pastDir;
+    private Vector3Int  _currentPos;
+    private Vector3Int  _targetPos;
+    private Animator    _animator;
     private AudioSource _audio;
-    public AudioClip AudioPickUp;
-    public AudioClip AudioDeadlock;
+
+    public AudioClip    AudioPickUp;
+    public AudioClip    AudioDeadlock;
     public bool IsMoveEnd { get => _isMoveEnd; set => _isMoveEnd = value; }
     public Transform Transform { get => _transform; }
 
     private void Start()
     {
-        _isGameSaved = false;
-        _targetPos = Vector3Int.zero;
-        _saveLoad = new SaveLoad();
-        _animator = GetComponent<Animator>();
-        _transform = GetComponent<Transform>();
-        _pointer = _transform.GetChild(0);
-        _audio = GetComponent<AudioSource>();
-        _interface = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
-        _pastDir = _interface.GetDirection();
+        _isGameSaved    = false;
+        _targetPos      = Vector3Int.zero;
+        _saveLoad       = new SaveLoad();
+        _animator       = GetComponent<Animator>();
+        _transform      = GetComponent<Transform>();
+        _pointer        = _transform.GetChild(0);
+        _audio          = GetComponent<AudioSource>();
+        _interface      = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
+        _pastDir        = _interface.GetDirection();
     }
+    /// <summary>
+    /// Проверка на свободную клетку
+    /// </summary>
     private void CheckMove(Vector3Int dir)
     {
-        Vector3Int newPos = Vector3Int.FloorToInt(transform.position) + dir;
+        Vector3Int newPos 
+            = Vector3Int.FloorToInt(transform.position) + dir;
 
         if (Grid.Value[newPos.x, newPos.y] == '0'
             || Grid.Value[newPos.x, newPos.y] == 'f'
@@ -55,6 +60,9 @@ public class Shadok : MonoBehaviour, IUnit
             _audio.Play();
         }
     }
+    /// <summary>
+    /// Управление клавиатурой
+    /// </summary>
     private void KeyboardControl()
     {
         Vector3Int dir = Vector3Int.zero;
@@ -101,6 +109,9 @@ public class Shadok : MonoBehaviour, IUnit
             CheckMove(dir);
         }
     }
+    /// <summary>
+    /// Управление мышью
+    /// </summary>
     private void MouseControl()
     {
         if (_interface.isUIControl)
@@ -183,6 +194,9 @@ public class Shadok : MonoBehaviour, IUnit
             _interface.SetButtonSelected((isInMove) ? "Step" : "Empty");
         }
     }
+    /// <summary>
+    /// Передвижение к цели
+    /// </summary>
     private void GoTowardDirection()
     {
         transform.position = Vector3.MoveTowards(transform.position, _targetPos, 10f * Time.deltaTime);
@@ -198,6 +212,9 @@ public class Shadok : MonoBehaviour, IUnit
             _pointer.gameObject.SetActive(false);
         }
     }
+    /// <summary>
+    /// При финише происходить выключение гг
+    /// </summary>
     private void CheckFinish()
     {
         if (Grid.GetMark(transform.position) == 'e')
@@ -205,6 +222,9 @@ public class Shadok : MonoBehaviour, IUnit
             gameObject.SetActive(false);
         }
     }
+    /// <summary>
+    /// Двигатель объекта
+    /// </summary>
     public void Move(Vector3 dir)
     {
         if(!_isGameSaved)

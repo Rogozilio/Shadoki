@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Grid
 {
     public static byte GameWidth { get => 10 + 2; }
     public static byte GameHeight { get => 10 + 2; }
     public static byte Width { get => (byte)(GameWidth + 4); }
-    public static char[,] Value
-        = new char[Width, GameHeight];
+
+    public static char[,] Value = new char[Width, GameHeight];
     static Grid()
     {
+        //Заполнение сетки игрового поля
         for (int i = 0; i < GameWidth; i++)
         {
             for (int j = 0; j < GameHeight; j++)
@@ -33,6 +32,7 @@ public class Grid
                     Value[i, j] = '0';
             }
         }
+        //Заполнение оставшейся сетки
         for (int i = GameWidth; i < Width; i++)
         {
             for (int j = 0; j < GameHeight; j++)
@@ -49,6 +49,9 @@ public class Grid
             }
         }
     }
+    /// <summary>
+    /// Заполнить сетку значениями в случайных местах
+    /// </summary>
     public static void SetMark(char gameObjectMark, byte count = 1)
     {
         while (count > 0)
@@ -62,10 +65,9 @@ public class Grid
             }
         }
     }
-    public static char GetMark(Vector3 pos)
-    {
-        return Value[(int)pos.x, (int)pos.y];
-    }
+    /// <summary>
+    /// Заполнить сетку значением в случайном месте и получить координату этого места
+    /// </summary>
     public static Vector2 SetMarkGetPosition(char gameObjectMark)
     {
         while (true)
@@ -79,11 +81,24 @@ public class Grid
             }
         }
     }
+    /// <summary>
+    /// Получить значения сетки по координатам
+    /// </summary>
+    public static char GetMark(Vector3 pos)
+    {
+        return Value[(int)pos.x, (int)pos.y];
+    }
+    /// <summary>
+    /// Перемещение объектов через сетку
+    /// </summary>
     public static void SwapMark(Vector3Int oldPos, Vector3Int newPos)
     {
         Value[newPos.x, newPos.y] = Value[oldPos.x, oldPos.y];
         Value[oldPos.x, oldPos.y] = '0';
     }
+    /// <summary>
+    /// получения количества знаков в сетке
+    /// </summary>
     public static byte CountMark(char mark)
     {
         byte count = 0;
@@ -99,6 +114,9 @@ public class Grid
         }
         return count;
     }
+    /// <summary>
+    /// Вывести сетку в консоль
+    /// </summary>
     public static void Show()
     {
         string row = "";

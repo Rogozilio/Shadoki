@@ -1,22 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
     private Button[] _buttonControl;
-    private Image _circuitBar;
-    private int _dirX;
-    private int _dirY;
-    public bool isUIControl;
+    private Image    _circuitBar;
+    private int      _dirX;
+    private int      _dirY;
+
+    public bool      isUIControl;
     public Image CircuiteBar { get => _circuitBar; set => _circuitBar = value; }
     private void OnEnable()
     {
         _buttonControl = GetComponentsInChildren<Button>();
-        _circuitBar = GetComponentInChildren<Image>();
+        _circuitBar    = GetComponentInChildren<Image>();
+
         UIDraw();
     }
+    /// <summary>
+    /// Отрисовка интерфейса
+    /// </summary>
     private void UIDraw()
     {
         foreach (Button button in _buttonControl)
@@ -54,11 +57,17 @@ public class UI : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Задать направление кнопки
+    /// </summary>
     private void SetDirection(Button button)
     {
         _dirX = (int)(button.transform.position.x - Grid.GameWidth - 1);
         _dirY = (int)(button.transform.position.y - 2);
     }
+    /// <summary>
+    /// Задать направление по кнопке
+    /// </summary>
     public void SetButtonSelected(string name)
     {
         foreach (Button button in _buttonControl)
@@ -69,6 +78,10 @@ public class UI : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Получить направление
+    /// </summary>
+    /// <returns></returns>
     public Vector3Int GetDirection()
     {
         return new Vector3Int(_dirX, _dirY, 0);

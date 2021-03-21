@@ -1,35 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gibi : MonoBehaviour, IUnit
 {
-    private bool _isMoveEnd;
-    private Vector3Int _currentPos;
-    private Vector3Int _targetPos;
-    private Transform _transform;
-    private Transform _pointer;
-    private Animator _animator;
+    private bool        _isMoveEnd;
+    private Vector3Int  _currentPos;
+    private Vector3Int  _targetPos;
+    private Transform   _transform;
+    private Transform   _pointer;
+    private Animator    _animator;
     private AudioSource _audio;
-    private AI _ai;
-    public AudioClip AudioPickUp;
 
+    public AudioClip    AudioPickUp;
     public bool IsMoveEnd { get => _isMoveEnd; set => _isMoveEnd = value; }
     public Transform Transform { get => _transform; set => _transform = value; }
     public void Start()
     {
-        _targetPos = Vector3Int.zero;
-        _audio = GetComponent<AudioSource>();
-        _transform = GetComponent<Transform>();
-        _pointer = _transform.GetChild(0);
+        _targetPos  = Vector3Int.zero;
+        _pointer    = _transform.GetChild(0);
+        _audio      = GetComponent<AudioSource>();
+        _transform  = GetComponent<Transform>();
+        _animator   = GetComponent<Animator>();
+        
         _pointer.gameObject.SetActive(false);
-        _animator = GetComponent<Animator>();
     }
     /// <summary>
-    /// Включение анимации персонажа и его интерфейса
+    /// Включение анимации персонажа
     /// </summary>
-    /// <param name="dir">Направление перемещения</param>
-    /// <param name="isInMove">Анимация движения?</param>
     private void SetAnimation(Vector3 dir, bool isInMove = false)
     {
         if (dir == Vector3Int.up)
@@ -73,6 +69,9 @@ public class Gibi : MonoBehaviour, IUnit
                 ? (int)AnimMove.LeftUp : (int)AnimStay.LeftUp);
         }
     }
+    /// <summary>
+    /// При финише происходит выключение gibi
+    /// </summary>
     private void CheckFinish()
     {
         if (Grid.GetMark(transform.position) == 'e')
@@ -80,20 +79,26 @@ public class Gibi : MonoBehaviour, IUnit
             gameObject.SetActive(false);
         }
     }
-    private void GoTowardDirection(Vector3Int dir)
+    /// <summary>
+    /// Перемещение к целевой позиции
+    /// </summary>
+    private void GoTowardDirection()
     {
         transform.position = Vector3.MoveTowards(transform.position, _targetPos, 10f * Time.deltaTime);
         if (Vector3.Distance(transform.position, _targetPos) < 0.001f)
         {
-            SetAnimation(_targetPos - _currentPos);
-            transform.position = _targetPos;
-            CheckFinish();
+            SetAnimation(_targetPos - _currentPos); 
+            transform.position = _targetPos;        
+            CheckFinish();               
             Grid.SwapMark(_currentPos, _targetPos);
             _targetPos = Vector3Int.zero;
             _isMoveEnd = true;
             _pointer.gameObject.SetActive(false);
         }
     }
+    /// <summary>
+    /// Проверка на свободную клетку
+    /// </summary>
     private void CheckMove(Vector3 dir)
     {
         Vector3Int newPos = Vector3Int.FloorToInt(transform.position + dir);
@@ -110,6 +115,9 @@ public class Gibi : MonoBehaviour, IUnit
             }
         }
     }
+    /// <summary>
+    /// Двигатель объекта
+    /// </summary>
     public void Move(Vector3 dir)
     {
         _pointer.gameObject.SetActive(true);
@@ -118,6 +126,6 @@ public class Gibi : MonoBehaviour, IUnit
             CheckMove(dir);
         }
         SetAnimation(_targetPos - _currentPos, true);
-        GoTowardDirection(Vector3Int.FloorToInt(dir));
+        GoTowardDirection();
     }
 }
