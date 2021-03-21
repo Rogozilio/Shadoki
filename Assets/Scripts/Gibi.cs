@@ -16,10 +16,10 @@ public class Gibi : MonoBehaviour, IUnit
     public void Start()
     {
         _targetPos  = Vector3Int.zero;
-        _pointer    = _transform.GetChild(0);
         _audio      = GetComponent<AudioSource>();
         _transform  = GetComponent<Transform>();
         _animator   = GetComponent<Animator>();
+        _pointer    = _transform.GetChild(0);
         
         _pointer.gameObject.SetActive(false);
     }
