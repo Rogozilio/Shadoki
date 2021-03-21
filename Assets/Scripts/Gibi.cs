@@ -34,35 +34,43 @@ public class Gibi : MonoBehaviour, IUnit
     {
         if (dir == Vector3Int.up)
         {
-            _animator.SetInteger("Gibi", (isInMove) ? 11 : 1);
+            _animator.SetInteger("Gibi", (isInMove)
+                ? (int)AnimMove.Up : (int)AnimStay.Up);
         }
         else if (dir == Vector3Int.right + Vector3Int.up)
         {
-            _animator.SetInteger("Gibi", (isInMove) ? 22 : 2);
+            _animator.SetInteger("Gibi", (isInMove)
+                ? (int)AnimMove.RightUp : (int)AnimStay.RightUp);
         }
         else if (dir == Vector3Int.right)
         {
-            _animator.SetInteger("Gibi", (isInMove) ? 33 : 3);
+            _animator.SetInteger("Gibi", (isInMove)
+                ? (int)AnimMove.Right : (int)AnimStay.Right);
         }
         else if (dir == Vector3Int.right + Vector3Int.down)
         {
-            _animator.SetInteger("Gibi", (isInMove) ? 44 : 4);
+            _animator.SetInteger("Gibi", (isInMove)
+                ? (int)AnimMove.RightDown : (int)AnimStay.RightDown);
         }
         else if (dir == Vector3Int.down)
         {
-            _animator.SetInteger("Gibi", (isInMove) ? 55 : 5);
+            _animator.SetInteger("Gibi", (isInMove)
+                ? (int)AnimMove.Down : (int)AnimStay.Down);
         }
         else if (dir == Vector3Int.left + Vector3Int.down)
         {
-            _animator.SetInteger("Gibi", (isInMove) ? 66 : 6);
+            _animator.SetInteger("Gibi", (isInMove)
+                ? (int)AnimMove.LeftDown : (int)AnimStay.LeftDown);
         }
         else if (dir == Vector3Int.left)
         {
-            _animator.SetInteger("Gibi", (isInMove) ? 77 : 7);
+            _animator.SetInteger("Gibi", (isInMove)
+                ? (int)AnimMove.Left : (int)AnimStay.Left);
         }
         else if (dir == Vector3Int.left + Vector3Int.up)
         {
-            _animator.SetInteger("Gibi", (isInMove) ? 88 : 8);
+            _animator.SetInteger("Gibi", (isInMove)
+                ? (int)AnimMove.LeftUp : (int)AnimStay.LeftUp);
         }
     }
     private void CheckFinish()

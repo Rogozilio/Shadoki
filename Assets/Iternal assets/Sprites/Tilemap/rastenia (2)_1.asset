@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: rastenia_5
+  m_Name: rastenia (2)_1
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -8817028400570202870, guid: 85e1c2b774db0b14eacc3a80434540f2, type: 3}
+  m_Sprite: {fileID: -1862435011434761639, guid: 251ee45764612f14f882041ae24afcfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

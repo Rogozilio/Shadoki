@@ -78,7 +78,7 @@ public class BuildWorld : MonoBehaviour
             && _interface.CircuiteBar.fillAmount == 1)
         {
             _interface.CircuiteBar.enabled = false;
-            Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4] = 'e';
+            Grid.Value[Grid.GameWidth - 2, Grid.GameHeight - 4] = 'e';
             _draw.Mark('e');
         }
     }

@@ -35,7 +35,7 @@ public class Rocket : MonoBehaviour
     }
     private void ChangeSprite()
     {
-        _finished = Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4];
+        _finished = Grid.Value[Grid.GameWidth - 2, Grid.GameHeight - 4];
 
         if (_interface.CircuiteBar.fillAmount == 1
             && _spriteRender.sprite != RocketOpen
@@ -50,7 +50,7 @@ public class Rocket : MonoBehaviour
         else if (_spriteRender.sprite == RocketOpen
             && (_finished == 's' || _finished == 'g'))
         {
-            Grid.Value[GlobalData.gameWidth - 2, GlobalData.gameHeight - 4] = '0';
+            Grid.Value[Grid.GameWidth - 2, Grid.GameHeight - 4] = '0';
             _spriteRender.sprite = (_finished == 's')?RocketShadok:RocketGibi;
             _fire.Play();
             _isReadyLaunch = true;

@@ -1,34 +1,34 @@
 fileFormatVersion: 2
-guid: 85e1c2b774db0b14eacc3a80434540f2
+guid: 251ee45764612f14f882041ae24afcfd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2377865992070078239
-    second: rastenia_0
+      213: -4064847237983950108
+    second: rastenia (2)_0
   - first:
-      213: -2421364404217173080
-    second: rastenia_1
+      213: -1862435011434761639
+    second: rastenia (2)_1
   - first:
-      213: 8713607546100781305
-    second: rastenia_2
+      213: 9206661888147747153
+    second: rastenia (2)_2
   - first:
-      213: 520242150822490078
-    second: rastenia_3
+      213: 4320407095011514266
+    second: rastenia (2)_3
   - first:
-      213: -7169193207201414239
-    second: rastenia_4
+      213: 7046451213593254306
+    second: rastenia (2)_4
   - first:
-      213: -8817028400570202870
-    second: rastenia_5
+      213: -325885052534648915
+    second: rastenia (2)_5
   - first:
-      213: 1609377046790650914
-    second: rastenia_6
+      213: 8341176729837253283
+    second: rastenia (2)_6
   - first:
-      213: -8526366674492017172
-    second: rastenia_7
+      213: -127221744141595028
+    second: rastenia (2)_7
   - first:
-      213: -6685145068508071109
-    second: rastenia_8
+      213: -1902671988194498880
+    second: rastenia (2)_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -70,7 +70,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
@@ -130,7 +130,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rastenia_0
+      name: rastenia (2)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -144,14 +144,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1f91d47580eff020800000000000000
-      internalID: 2377865992070078239
+      spriteID: 4ea2db939f2c697c0800000000000000
+      internalID: -4064847237983950108
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rastenia_1
+      name: rastenia (2)_1
       rect:
         serializedVersion: 2
         x: 64
@@ -165,14 +165,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ab2cde37e5956ed0800000000000000
-      internalID: -2421364404217173080
+      spriteID: 9523e26893d4726e0800000000000000
+      internalID: -1862435011434761639
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rastenia_2
+      name: rastenia (2)_2
       rect:
         serializedVersion: 2
         x: 128
@@ -186,14 +186,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f0108185e3fce870800000000000000
-      internalID: 8713607546100781305
+      spriteID: 1517c225532a4cf70800000000000000
+      internalID: 9206661888147747153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rastenia_3
+      name: rastenia (2)_3
       rect:
         serializedVersion: 2
         x: 0
@@ -207,14 +207,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: edfa5f4da75483700800000000000000
-      internalID: 520242150822490078
+      spriteID: a971d37cc5b25fb30800000000000000
+      internalID: 4320407095011514266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rastenia_4
+      name: rastenia (2)_4
       rect:
         serializedVersion: 2
         x: 64
@@ -228,14 +228,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a3cd9613c8e18c90800000000000000
-      internalID: -7169193207201414239
+      spriteID: 2a998598b060ac160800000000000000
+      internalID: 7046451213593254306
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rastenia_5
+      name: rastenia (2)_5
       rect:
         serializedVersion: 2
         x: 128
@@ -249,14 +249,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a058b71626f93a580800000000000000
-      internalID: -8817028400570202870
+      spriteID: daf001675493a7bf0800000000000000
+      internalID: -325885052534648915
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rastenia_6
+      name: rastenia (2)_6
       rect:
         serializedVersion: 2
         x: 0
@@ -270,14 +270,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22cbf9fa5e7a55610800000000000000
-      internalID: 1609377046790650914
+      spriteID: 3a234b6da00d1c370800000000000000
+      internalID: 8341176729837253283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rastenia_7
+      name: rastenia (2)_7
       rect:
         serializedVersion: 2
         x: 64
@@ -291,14 +291,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce5bc262fa24ca980800000000000000
-      internalID: -8526366674492017172
+      spriteID: c6e0cbc6f740c3ef0800000000000000
+      internalID: -127221744141595028
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rastenia_8
+      name: rastenia (2)_8
       rect:
         serializedVersion: 2
         x: 128
@@ -312,8 +312,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3b3f97caf79933a0800000000000000
-      internalID: -6685145068508071109
+      spriteID: 0c6a49358e95895e0800000000000000
+      internalID: -1902671988194498880
       vertices: []
       indices: 
       edges: []

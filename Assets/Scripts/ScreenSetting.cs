@@ -8,8 +8,8 @@ public class ScreenSetting : MonoBehaviour
     void Start()
     {
         _main = GetComponent<Camera>();
-        _main.orthographicSize = (GlobalData.gameHeight) / 2f;
-        _main.aspect = (float)(GlobalData.width) / (GlobalData.gameHeight);
-        _main.transform.position = new Vector3((GlobalData.width) / 2f, (GlobalData.gameHeight) / 2f, -10);
+        _main.orthographicSize = (Grid.GameHeight) / 2f;
+        _main.aspect = (float)(Grid.Width) / (Grid.GameHeight);
+        _main.transform.position = new Vector3(Grid.Width / 2f, (Grid.GameHeight) / 2f, -10);
     }
 }

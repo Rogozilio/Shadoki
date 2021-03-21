@@ -130,47 +130,56 @@ public class Shadok : MonoBehaviour, IUnit
             _interface.isUIControl = false;
         if (dir == Vector3Int.up)
         {
-            _animator.SetInteger("Shadok", (isInMove) ? 11 : 1);
+            _animator.SetInteger("Shadok", (isInMove) 
+                ? (int)AnimMove.Up : (int)AnimStay.Up);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Up");
         }
         else if (dir == Vector3Int.right + Vector3Int.up)
         {
-            _animator.SetInteger("Shadok", (isInMove) ? 22 : 2);
+            _animator.SetInteger("Shadok", (isInMove) 
+                ? (int)AnimMove.RightUp : (int)AnimStay.RightUp);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Right_up");
         }
         else if (dir == Vector3Int.right)
         {
-            _animator.SetInteger("Shadok", (isInMove) ? 33 : 3);
+            _animator.SetInteger("Shadok", (isInMove) 
+                ? (int)AnimMove.Right : (int)AnimStay.Right);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Right");
         }
         else if (dir == Vector3Int.right + Vector3Int.down)
         {
-            _animator.SetInteger("Shadok", (isInMove) ? 44 : 4);
+            _animator.SetInteger("Shadok", (isInMove) 
+                ? (int)AnimMove.RightDown : (int)AnimStay.RightDown);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Right_down");
         }
         else if (dir == Vector3Int.down)
         {
-            _animator.SetInteger("Shadok", (isInMove) ? 55 : 5);
+            _animator.SetInteger("Shadok", (isInMove) 
+                ? (int)AnimMove.Down : (int)AnimStay.Down);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Down");
         }
         else if (dir == Vector3Int.left + Vector3Int.down)
         {
-            _animator.SetInteger("Shadok", (isInMove) ? 66 : 6);
+            _animator.SetInteger("Shadok", (isInMove) 
+                ? (int)AnimMove.LeftDown : (int)AnimStay.LeftDown);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Left_down");
         }
         else if (dir == Vector3Int.left)
         {
-            _animator.SetInteger("Shadok", (isInMove) ? 77 : 7);
+            _animator.SetInteger("Shadok", (isInMove) 
+                ? (int)AnimMove.Left : (int)AnimStay.Left);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Left");
         }
         else if (dir == Vector3Int.left + Vector3Int.up)
         {
-            _animator.SetInteger("Shadok", (isInMove) ? 88 : 8);
+            _animator.SetInteger("Shadok", (isInMove) 
+                ? (int)AnimMove.LeftUp : (int)AnimStay.LeftUp);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Left_up");
         }
         else if (dir == Vector3Int.zero)
         {
-            _animator.SetInteger("Shadok", (isInMove) ? 55 : 5);
+            _animator.SetInteger("Shadok", (isInMove) 
+                ? (int)AnimMove.Down : (int)AnimStay.Down);
             _interface.SetButtonSelected((isInMove) ? "Step" : "Empty");
         }
     }

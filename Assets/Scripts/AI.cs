@@ -22,9 +22,9 @@ public class AI
     private void SetLocationGibiAndFlower()
     {
         Vector2 locationShadok = Vector2.zero;
-        for (int i = 1; i < GlobalData.gameWidth - 1; i++)
+        for (int i = 1; i < Grid.GameWidth - 1; i++)
         {
-            for (int j = 1; j < GlobalData.gameHeight - 1; j++)
+            for (int j = 1; j < Grid.GameHeight - 1; j++)
             {
                 if (Grid.Value[i, j] == 's')
                 {
@@ -113,7 +113,7 @@ public class AI
         DeleteFreeFlower(index);
         if (_isExistFinish)
         {
-            _dir.Add(i, new Vector2(GlobalData.gameWidth - 2, GlobalData.gameHeight - 4)); 
+            _dir.Add(i, new Vector2(Grid.GameWidth - 2, Grid.GameHeight - 4)); 
         }
         else if(!_dir.ContainsKey(i))
         {

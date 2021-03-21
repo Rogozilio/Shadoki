@@ -4,44 +4,47 @@ using UnityEngine;
 
 public class Grid
 {
+    public static byte GameWidth { get => 10 + 2; }
+    public static byte GameHeight { get => 10 + 2; }
+    public static byte Width { get => (byte)(GameWidth + 4); }
     public static char[,] Value
-        = new char[GlobalData.width, GlobalData.gameHeight];
+        = new char[Width, GameHeight];
     static Grid()
     {
-        for (int i = 0; i < GlobalData.gameWidth; i++)
+        for (int i = 0; i < GameWidth; i++)
         {
-            for (int j = 0; j < GlobalData.gameHeight; j++)
+            for (int j = 0; j < GameHeight; j++)
             {
                 if (i == 0 && j == 0)
                     Value[i, j] = '└';
-                else if (i == 0 && j == GlobalData.gameHeight - 1)
+                else if (i == 0 && j == GameHeight - 1)
                     Value[i, j] = '┌';
-                else if (i == GlobalData.gameWidth - 1 && j == 0)
+                else if (i == GameWidth - 1 && j == 0)
                     Value[i, j] = '┴';
-                else if (i == GlobalData.gameWidth - 1 && j == GlobalData.gameHeight - 1)
+                else if (i == GameWidth - 1 && j == GameHeight - 1)
                     Value[i, j] = '┐';
-                else if (i == GlobalData.gameWidth - 1 && j == 4)
+                else if (i == GameWidth - 1 && j == 4)
                     Value[i, j] = '├';
-                else if (i == 0 || i == GlobalData.gameHeight - 1)
+                else if (i == 0 || i == GameHeight - 1)
                     Value[i, j] = '|';
-                else if (j == 0 || j == GlobalData.gameHeight - 1)
+                else if (j == 0 || j == GameHeight - 1)
                     Value[i, j] = '-';
                 else
                     Value[i, j] = '0';
             }
         }
-        for (int i = GlobalData.gameWidth; i < GlobalData.width; i++)
+        for (int i = GameWidth; i < Width; i++)
         {
-            for (int j = 0; j < GlobalData.gameHeight; j++)
+            for (int j = 0; j < GameHeight; j++)
             {
                 Value[i, j] = '0';
-                if ((j == 4 || j == 0) && i < GlobalData.width - 1)
+                if ((j == 4 || j == 0) && i < Width - 1)
                     Value[i, j] = '-';
-                else if (i == GlobalData.width - 1 && j > 0 && j < 4)
+                else if (i == Width - 1 && j > 0 && j < 4)
                     Value[i, j] = '|';
-                else if (i == GlobalData.width - 1 && j == 4)
+                else if (i == Width - 1 && j == 4)
                     Value[i, j] = '┐';
-                else if (i == GlobalData.width - 1 && j == 0)
+                else if (i == Width - 1 && j == 0)
                     Value[i, j] = '┘';
             }
         }
@@ -50,8 +53,8 @@ public class Grid
     {
         while (count > 0)
         {
-            byte x = (byte)Random.Range(1, GlobalData.gameWidth - 1);
-            byte y = (byte)Random.Range(1, GlobalData.gameHeight - 1);
+            byte x = (byte)Random.Range(1, GameWidth - 1);
+            byte y = (byte)Random.Range(1, GameHeight - 1);
             if (Value[x, y] == '0')
             {
                 Value[x, y] = gameObjectMark;
@@ -67,8 +70,8 @@ public class Grid
     {
         while (true)
         {
-            byte x = (byte)Random.Range(1, GlobalData.gameWidth - 1);
-            byte y = (byte)Random.Range(1, GlobalData.gameHeight - 1);
+            byte x = (byte)Random.Range(1, GameWidth - 1);
+            byte y = (byte)Random.Range(1, GameHeight - 1);
             if (Value[x, y] == '0')
             {
                 Value[x, y] = gameObjectMark;
@@ -84,9 +87,9 @@ public class Grid
     public static byte CountMark(char mark)
     {
         byte count = 0;
-        for (int i = 0; i < GlobalData.gameWidth; i++)
+        for (int i = 0; i < GameWidth; i++)
         {
-            for (int j = 0; j < GlobalData.gameHeight; j++)
+            for (int j = 0; j < GameHeight; j++)
             {
                 if (Value[i, j] == mark)
                 {
@@ -99,9 +102,9 @@ public class Grid
     public static void Show()
     {
         string row = "";
-        for (int x = GlobalData.gameHeight - 2; x > 0; x--) 
+        for (int x = GameHeight - 2; x > 0; x--) 
         {
-            for (int y = 1; y < GlobalData.gameWidth - 1; y++)
+            for (int y = 1; y < GameWidth - 1; y++)
             {
                 row += Value[y,x] + " ";
             }

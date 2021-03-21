@@ -25,38 +25,38 @@ public class UI : MonoBehaviour
             switch (button.name)
             {
                 case "Up":
-                button.transform.position = new Vector3(GlobalData.gameWidth + 1, 3, 1);
+                button.transform.position = new Vector3(Grid.GameWidth + 1, 3, 1);
                 break;
                 case "Down":
-                button.transform.position = new Vector3(GlobalData.gameWidth + 1, 1, 1);
+                button.transform.position = new Vector3(Grid.GameWidth + 1, 1, 1);
                 break;
                 case "Left":
-                button.transform.position = new Vector3(GlobalData.gameWidth, 2, 1);
+                button.transform.position = new Vector3(Grid.GameWidth, 2, 1);
                 break;
                 case "Right":
-                button.transform.position = new Vector3(GlobalData.gameWidth + 2, 2, 1);
+                button.transform.position = new Vector3(Grid.GameWidth + 2, 2, 1);
                 break;
                 case "Left_up":
-                button.transform.position = new Vector3(GlobalData.gameWidth, 3, 1);
+                button.transform.position = new Vector3(Grid.GameWidth, 3, 1);
                 break;
                 case "Right_up":
-                button.transform.position = new Vector3(GlobalData.gameWidth + 2, 3, 1);
+                button.transform.position = new Vector3(Grid.GameWidth + 2, 3, 1);
                 break;
                 case "Left_down":
-                button.transform.position = new Vector3(GlobalData.gameWidth, 1, 1);
+                button.transform.position = new Vector3(Grid.GameWidth, 1, 1);
                 break;
                 case "Right_down":
-                button.transform.position = new Vector3(GlobalData.gameWidth + 2, 1, 1);
+                button.transform.position = new Vector3(Grid.GameWidth + 2, 1, 1);
                 break;
                 case "Step":
-                button.transform.position = new Vector3(GlobalData.gameWidth + 1, 2, 1);
+                button.transform.position = new Vector3(Grid.GameWidth + 1, 2, 1);
                 break;
             }
         }
     }
     private void SetDirection(Button button)
     {
-        _dirX = (int)(button.transform.position.x - GlobalData.gameWidth - 1);
+        _dirX = (int)(button.transform.position.x - Grid.GameWidth - 1);
         _dirY = (int)(button.transform.position.y - 2);
     }
     public void SetButtonSelected(string name)
