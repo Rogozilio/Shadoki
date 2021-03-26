@@ -6,24 +6,26 @@ using System;
 [Serializable]
 public class SaveData
 {
-    public char[,] Grid;
-    public float CircuitBar;
+    public char[,]  Grid;
+    public float    ShadokBar;
+    public float    BadokBar;
 }
 public class SaveLoad
 {
     /// <summary>
     /// Ñîõğàíåíèå äàííûõ
     /// </summary>
-    public void SaveData(float circuitBar)
+    public void SaveData(float shadokBar, float badokBar = 0, string name = "Shadok")
     {
-        if(circuitBar != 1)
+        if(shadokBar != 1 && badokBar != 1)
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(Application.persistentDataPath
-              + "/MySaveData.dat");
+              + "/" + name + ".dat");
             SaveData data = new SaveData();
             data.Grid = Grid.Value;
-            data.CircuitBar = circuitBar;
+            data.ShadokBar = shadokBar;
+            data.BadokBar = badokBar;
             bf.Serialize(file, data);
             file.Close();
         }
@@ -31,19 +33,20 @@ public class SaveLoad
     /// <summary>
     /// Çàãğóçêà äàííûõ
     /// </summary>
-    public bool LoadData(ref UI interfañe)
+    public bool LoadData(ref UI interfañe, string name = "Shadok")
     {
         if (File.Exists(Application.persistentDataPath
-    + "/MySaveData.dat"))
+    + "/" + name + ".dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file =
               File.Open(Application.persistentDataPath
-              + "/MySaveData.dat", FileMode.Open);
+              + "/" + name + ".dat", FileMode.Open);
             SaveData data = (SaveData)bf.Deserialize(file);
             file.Close();
             Grid.Value = data.Grid;
-            interfañe.CircuiteBar.fillAmount = data.CircuitBar;
+            interfañe.ShadokBar.fillAmount = data.ShadokBar;
+            interfañe.BadokBar.fillAmount = data.BadokBar;
             return true;
         }
         else
@@ -52,13 +55,13 @@ public class SaveLoad
     /// <summary>
     /// Î÷èùåíèå äàííûõ
     /// </summary>
-    public void ResetData()
+    public void ResetData(string name = "Shadok")
     {
         if (File.Exists(Application.persistentDataPath
-          + "/MySaveData.dat"))
+          + "/" + name + ".dat"))
         {
             File.Delete(Application.persistentDataPath
-              + "/MySaveData.dat");
+              + "/" + name + ".dat");
         }
     }
 }

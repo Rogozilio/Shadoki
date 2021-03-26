@@ -52,7 +52,7 @@ public class Grid
     /// <summary>
     /// Заполнить сетку значениями в случайных местах
     /// </summary>
-    public static void SetMark(char gameObjectMark, byte count = 1)
+    public static void SetMark(char mark, byte count = 1)
     {
         while (count > 0)
         {
@@ -60,7 +60,8 @@ public class Grid
             byte y = (byte)Random.Range(1, GameHeight - 1);
             if (Value[x, y] == '0')
             {
-                Value[x, y] = gameObjectMark;
+                string number = "123456789";
+                Value[x, y] = (mark == 'f') ? number[Random.Range(0, 9)] : mark;
                 count--;
             }
         }
@@ -68,7 +69,7 @@ public class Grid
     /// <summary>
     /// Заполнить сетку значением в случайном месте и получить координату этого места
     /// </summary>
-    public static Vector2 SetMarkGetPosition(char gameObjectMark)
+    public static Vector2 SetMarkGetPosition(char mark)
     {
         while (true)
         {
@@ -76,10 +77,28 @@ public class Grid
             byte y = (byte)Random.Range(1, GameHeight - 1);
             if (Value[x, y] == '0')
             {
-                Value[x, y] = gameObjectMark;
+                string number = "123456789";
+                Value[x, y] = (mark == 'f') ? number[Random.Range(0, 9)] : mark;
                 return new Vector2(x, y);
             }
         }
+    }
+    /// <summary>
+    /// Получить координат сетки по символу
+    /// </summary>
+    public static Vector3Int GetMarkPosition(char mark)
+    {
+        for (int i = 0; i < GameWidth; i++)
+        {
+            for (int j = 0; j < GameHeight; j++)
+            {
+                if (Value[i, j] == mark)
+                {
+                    return new Vector3Int(i, j, -1);
+                }
+            }
+        }
+        return Vector3Int.zero;
     }
     /// <summary>
     /// Получить значения сетки по координатам
@@ -99,20 +118,52 @@ public class Grid
     /// <summary>
     /// получения количества знаков в сетке
     /// </summary>
-    public static byte CountMark(char mark)
+    public static byte CountMark(string marks)
     {
         byte count = 0;
         for (int i = 0; i < GameWidth; i++)
         {
             for (int j = 0; j < GameHeight; j++)
             {
-                if (Value[i, j] == mark)
+                foreach(char mark in marks)
                 {
-                    count++;
+                    if (Value[i, j] == mark)
+                    {
+                        count++;
+                        break;
+                    }
                 }
             }
         }
         return count;
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public static bool IsPathFree(Vector3Int pos, string marks)
+    {
+        foreach(char mark in marks)
+        {
+            if (Value[pos.x, pos.y] == mark)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public static bool IsPathFree(int x, int y, string marks)
+    {
+        foreach (char mark in marks)
+        {
+            if (Value[x, y] == mark)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     /// <summary>
     /// Вывести сетку в консоль

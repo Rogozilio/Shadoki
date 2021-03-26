@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Gibi : MonoBehaviour, IUnit
 {
+    private string      _name;
     private bool        _isMoveEnd;
     private Vector3Int  _currentPos;
     private Vector3Int  _targetPos;
@@ -15,6 +16,7 @@ public class Gibi : MonoBehaviour, IUnit
     public Transform Transform { get => _transform; set => _transform = value; }
     public void Start()
     {
+        _name = gameObject.name.Replace("(Clone)", "");
         _targetPos  = Vector3Int.zero;
         _audio      = GetComponent<AudioSource>();
         _transform  = GetComponent<Transform>();
@@ -30,42 +32,42 @@ public class Gibi : MonoBehaviour, IUnit
     {
         if (dir == Vector3Int.up)
         {
-            _animator.SetInteger("Gibi", (isInMove)
+            _animator.SetInteger(_name, (isInMove)
                 ? (int)AnimMove.Up : (int)AnimStay.Up);
         }
         else if (dir == Vector3Int.right + Vector3Int.up)
         {
-            _animator.SetInteger("Gibi", (isInMove)
+            _animator.SetInteger(_name, (isInMove)
                 ? (int)AnimMove.RightUp : (int)AnimStay.RightUp);
         }
         else if (dir == Vector3Int.right)
         {
-            _animator.SetInteger("Gibi", (isInMove)
+            _animator.SetInteger(_name, (isInMove)
                 ? (int)AnimMove.Right : (int)AnimStay.Right);
         }
         else if (dir == Vector3Int.right + Vector3Int.down)
         {
-            _animator.SetInteger("Gibi", (isInMove)
+            _animator.SetInteger(_name, (isInMove)
                 ? (int)AnimMove.RightDown : (int)AnimStay.RightDown);
         }
         else if (dir == Vector3Int.down)
         {
-            _animator.SetInteger("Gibi", (isInMove)
+            _animator.SetInteger(_name, (isInMove)
                 ? (int)AnimMove.Down : (int)AnimStay.Down);
         }
         else if (dir == Vector3Int.left + Vector3Int.down)
         {
-            _animator.SetInteger("Gibi", (isInMove)
+            _animator.SetInteger(_name, (isInMove)
                 ? (int)AnimMove.LeftDown : (int)AnimStay.LeftDown);
         }
         else if (dir == Vector3Int.left)
         {
-            _animator.SetInteger("Gibi", (isInMove)
+            _animator.SetInteger(_name, (isInMove)
                 ? (int)AnimMove.Left : (int)AnimStay.Left);
         }
         else if (dir == Vector3Int.left + Vector3Int.up)
         {
-            _animator.SetInteger("Gibi", (isInMove)
+            _animator.SetInteger(_name, (isInMove)
                 ? (int)AnimMove.LeftUp : (int)AnimStay.LeftUp);
         }
     }
@@ -102,13 +104,11 @@ public class Gibi : MonoBehaviour, IUnit
     private void CheckMove(Vector3 dir)
     {
         Vector3Int newPos = Vector3Int.FloorToInt(transform.position + dir);
-        if (Grid.Value[newPos.x, newPos.y] == '0'
-            || Grid.Value[newPos.x, newPos.y] == 'f'
-            || Grid.Value[newPos.x, newPos.y] == 'e')
+        if (Grid.IsPathFree(newPos, "e0123456789"))
         {
             _targetPos = newPos;
             _currentPos = Vector3Int.FloorToInt(transform.position);
-            if(Grid.Value[newPos.x, newPos.y] == 'f')
+            if(Grid.IsPathFree(newPos, "123456789"))
             {
                 _audio.clip = AudioPickUp;
                 _audio.Play();

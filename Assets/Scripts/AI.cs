@@ -36,7 +36,7 @@ public class AI
                 {
                     _locationGibi.Add(new Vector2(i, j));
                 }
-                else if (Grid.Value[i, j] == 'f')
+                else if (Grid.IsPathFree(i, j, "123456789"))
                 {
                     _locationFlower.Add(new Vector2(i, j));
                 }
@@ -183,9 +183,7 @@ public class AI
 
         for (int numberDirection = 4; numberDirection >= 0; numberDirection--)
         {
-            if ((Grid.GetMark(newPos) == '0'
-                || Grid.GetMark(newPos) == 'f'
-                || Grid.GetMark(newPos) == 'e')
+            if (Grid.IsPathFree((int)newPos.x, (int)newPos.y, "e0123456789")
                 && oldDir != Vector2.zero
                 && oldDir.x >= -1 && oldDir.x <= 1
                 && oldDir.y >= -1 && oldDir.y <= 1)

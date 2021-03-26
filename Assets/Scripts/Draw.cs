@@ -1,15 +1,18 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Draw
 {
     private InstantiateDelegat  _instantiate;
+    private Tilemap             _map;
     private Data                _data;
 
     public delegate GameObject InstantiateDelegat(GameObject original, Vector3 position, Quaternion rotation);
     public Draw(InstantiateDelegat instantiate, Tilemap map)
     {
+        _map         = map;
         _data        = new Data();
         _instantiate = instantiate;
 
@@ -42,13 +45,13 @@ public class Draw
                 {
                     _units.AddLast(CreateInstance(i, j).GetComponent<IUnit>());
                 }
-                else if (Grid.Value[i, j] == 's')
+                else if (Grid.Value[i, j] == 's' || Grid.Value[i, j] == 'b')
                 {
                     _units.AddFirst(CreateInstance(i, j).GetComponent<IUnit>());
                 }
                 else if (Grid.Value[i, j] != '0')
                 {
-                    CreateInstance(i, j);
+                    _map.SetTile(new Vector3Int(i, j, -1), _data.Sprite[Grid.Value[i, j]]);
                 }
             }
         }
@@ -77,7 +80,21 @@ public class Draw
     /// </summary>
     public void Mark(byte x, byte y)
     {
-        CreateInstance(x, y, Grid.Value[x, y]);
+        _map.SetTile(new Vector3Int(x, y, -1), _data.Sprite[Grid.Value[x, y]]);
+        Flower();
+    }
+    public void Flower()
+    {
+        for (int i = 1; i < Grid.GameWidth - 1; i++)
+        {
+            for (int j = 1; j < Grid.GameHeight - 1; j++)
+            {
+                if(Grid.IsPathFree(i, j, "esbg"))
+                    _map.SetTile(new Vector3Int(i, j, -1), _data.Sprite['0']);
+                else
+                    _map.SetTile(new Vector3Int(i, j, -1), _data.Sprite[Grid.Value[i, j]]);
+            }
+        }
     }
     /// <summary>
     /// Отрисовка фона
