@@ -8,4 +8,4 @@
 
 Пример игрового процесса:
 
-![Альтернативный текст] (https://github.com/Rogozilio/Shadoki/blob/master/Shadoki-gameplay.gif)
+![Альтернативный текст](https://github.com/Rogozilio/Shadoki/blob/master/Shadoki-gameplay.gif)
